@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
@@ -7,18 +8,16 @@ import {
   Download,
   Search,
   X,
-  Package,
-  Zap,
   Sparkles,
   Check,
 } from "lucide-react";
 import { App, ProgramCategory, InstallMethod, Programs } from "@/types";
 import { ScriptGenerator } from "@/utils/scriptGenerator";
+import { Logo } from "@/components/Logo";
 
 const Home: FC = () => {
   const [selectedAppIds, setSelectedAppIds] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [installMethod, setInstallMethod] = useState<InstallMethod>("auto");
 
   const toggleApp = (appId: string): void => {
     setSelectedAppIds((prev) =>
@@ -59,7 +58,7 @@ const Home: FC = () => {
     }
 
     const selectedApps = getSelectedApps();
-    const generator = new ScriptGenerator(selectedApps, installMethod);
+    const generator = new ScriptGenerator(selectedApps, "auto");
     const script = generator.generate();
 
     const blob = new Blob([script], { type: "text/plain" });
@@ -111,19 +110,7 @@ const Home: FC = () => {
       <header className="bg-gray-800/50 backdrop-blur-xl border-b border-gray-700/50 sticky top-0 z-50">
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-gradient-to-br from-purple-600 to-pink-600 p-3 rounded-2xl shadow-lg">
-                <Sparkles className="text-white" size={18} />
-              </div>
-              <div>
-                <h1 className="text-2xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-                  AppMaster
-                </h1>
-                <p className="text-gray-400 mt-1 font-medium">
-                  Install everything with one click ✨
-                </p>
-              </div>
-            </div>
+            <Logo size="md" showText={true} />
             {/* Search Bar */}
             <div className="relative flex-1">
               <Search
